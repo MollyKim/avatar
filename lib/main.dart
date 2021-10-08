@@ -238,9 +238,11 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {
               clothList.remove(imageName);
               int i = extracted.indexWhere((element) => (element.key == key) );
+              if(i!=-1)
               extracted.removeAt(i);
               int j = extractedOuterChildren.indexWhere((element) => (element.key == key) );
-              extractedOuterChildren.removeAt(j);
+              if(j!=-1)
+                extractedOuterChildren.removeAt(j);
             });
         }
         else if(clothList.length==2) {
@@ -248,8 +250,10 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {
               clothList.remove(imageName);
               int i = extracted.indexWhere((element) { print(element.key);print(key); return (element.key == key); });
+              if(i!=-1)
               extracted.removeAt(i);
               int j = extractedOuterChildren.indexWhere((element) => (element.key == key) );
+              if(j!=-1)
               extractedOuterChildren.removeAt(j);
             });
           else
@@ -291,7 +295,9 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {
               clothList.add(imageName);
               for(int index = 1; index < extracted.length; index++){
-                if(!extractedOuterChildren.contains(extracted[index]) && !extractedOuterChildren.contains(extractedOuterChildren[index])){
+                if(index == 1 && !extractedOuterChildren.contains(extracted[1]) )
+                  extractedOuterChildren.add(extracted[1]);
+                else if(!extractedOuterChildren.contains(extracted[index])){
                   extractedOuterChildren.add(extracted[index]);
                 }
               }
@@ -307,7 +313,10 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {
               clothList.remove(imageName);
               int i = extracted.indexWhere((element) => (element.key == key) );
+              if(i!=-1)
               extracted.removeAt(i);
+              extractedOuterChildren.clear();
+              extractedOuterChildren.add(Container(height:370,width: 100,));
             });
           else
             showDialog(
